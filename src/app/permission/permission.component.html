@@ -1,0 +1,179 @@
+<div class="content-wrapper">
+    <div class="container-fluid">
+
+
+
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Permission</li>
+        </ol>
+        <!-- Example DataTables Card-->
+        <div class="card mb-3">
+            <div class="card-header">
+                Permission ระดับสูง</div>
+            <div class="card-body">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">การเข้าถึง</label>
+                                    <select (change)="onchange()" [(ngModel)]="selectedValue" class="form-control" id="exampleFormControlSelect1">
+                                          <option  *ngFor="let lm of listMain;let i = index" [value]="lm._id" >{{lm.main}}</option>
+                                         
+                                          
+                                        </select>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">สร้างใหม่</label>
+                                    <input type="text" [(ngModel)]="permissionCheck.permission" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Permission">
+
+                                </div>
+                                <button type="button" (click)="save()" class="btn btn-primary">สร้าง</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover" width="100%" cellspacing="0">
+                        <thead class="table-warning">
+                            <tr>
+
+                                <th>permission</th>
+                                <th>อ่าน</th>
+                                <th>สร้าง</th>
+                                <th>แก้ไข</th>
+                                <th>ลบ</th>
+
+                                <th></th>
+
+
+                            </tr>
+                            <tr class="select-row" *ngIf="listPermission[select]">
+
+                                <td>
+                                    {{listPermission[select].permission}}
+                                </td>
+                                <td>
+                                    <label class="form-check-label">
+                                        <input [checked]="listPermission[select].access.read"  (change)="changePermission('read')" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                      </label>
+                                </td>
+                                <td>
+                                    <label class="form-check-label">
+                                        <input  [checked]="listPermission[select].access.create" (change)="changePermission('create')" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                      </label>
+                                </td>
+                                <td>
+                                    <label class="form-check-label">
+                                        <input  [checked]="listPermission[select].access.edit" (change)="changePermission('edit')" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                      </label>
+                                </td>
+                                <td>
+                                    <label class="form-check-label">
+                                        <input  [checked]="listPermission[select].access.delete" (change)="changePermission('delete')" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                      </label>
+                                </td>
+
+                                <td>
+                                    <button type="button" (click)="edit()" class="btn btn-primary">แก้ไข</button>
+                                </td>
+
+                            </tr>
+                        </thead>
+                        <!-- <tfoot>
+                            <tr>
+                                <th>permisstion</th>
+                                <th>อ่าน</th>
+                                <th>สร้าง</th>
+                                <th>แก้ไข</th>
+                                <th>ลบ</th>
+                            </tr>
+                        </tfoot> -->
+                        <tbody>
+
+                            <tr *ngFor="let lp of listPermission;let i = index" (click)="selectPermission(i)">
+
+                                <td>{{lp.permission}}</td>
+                                <td>
+                                    <i *ngIf="lp.access" [class]="lp.access.read ? 'fa fa-check':'fa fa-times'" aria-hidden="true"></i>
+
+                                    <!-- <label class="form-check-label">
+                                        <input [(ngModel)]="lp.read" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                      </label> -->
+                                </td>
+                                <td>
+                                    <i *ngIf="lp.access" [class]="lp.access.create ? 'fa fa-check':'fa fa-times'" aria-hidden="true"></i>
+                                    <!-- <label class="form-check-label">
+                                        <input [(ngModel)]="lp.create" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                      </label> -->
+                                </td>
+                                <td>
+                                    <i *ngIf="lp.access" [class]="lp.access.edit ? 'fa fa-check':'fa fa-times'" aria-hidden="true"></i>
+                                    <!-- <label class="form-check-label">
+                                        <input [(ngModel)]="lp.edit" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                      </label> -->
+                                </td>
+                                <td>
+                                    <i *ngIf="lp.access" [class]="lp.access.delete ? 'fa fa-check':'fa fa-times'" aria-hidden="true"></i>
+                                    <!-- <label class="form-check-label">
+                                        <input [(ngModel)]="lp.delete" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                      </label> -->
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" type="submit" (click)="forceLogout(lp._id)">บังคับออกจากระบบ</button>
+                                    <button class="btn btn-danger" type="submit" (click)="remove(i)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM </div>
+        </div>
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="text-center">
+                <small>Copyright © Your Website 2017</small>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
