@@ -1,112 +1,125 @@
 <div class="content-wrapper" [style.background]="'#eeeeee'">
-
-    <!-- <img id="image" width="600" height="300" src="./assets/maxresdefault.jpg"> -->
-
     <div class="container-fluid">
-
         <ol class="breadcrumb">
-
             <li class="breadcrumb-item active">จัดการหัวข้อ</li>
             <li class="breadcrumb-item active">topic</li>
         </ol>
-
         <div class="card mb-3">
             <div class="card-header">
-
-                <h5>จัดการหัวข้อ <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#create">สร้าง</button></h5>
+                <h5>Manage Topic {{ dataTopic['topic'] }}
+                    <button type="button" class="btn btn-sm btn-primary pull-right" data-toggle="collapse" data-target="#create">create</button>
+                </h5>
             </div>
+
             <div class="collapse multi-collapse" id="create">
                 <div class="card">
                     <div class="card-body">
-                        <div class="custom-component-drop-zone">
-                            <img class="upload" *ngIf="croppedImage" [src]="croppedImage" />
+
+                        <div *ngIf="ref">
+                            <img-cropper [image]="dataCover" [settings]="cropCover"></img-cropper>
+                            <br>
+                            <!-- <img *ngIf="dataCover.image" [src]="dataCover.image" [width]="cropCover.croppedWidth" [height]="cropCover.croppedHeight"> -->
                         </div>
-                        <image-cropper *ngIf="statusCrop" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" [resizeToWidth]="1200" format="png" (imageCropped)="imageCropped($event)"></image-cropper>
-                        <input type="file" (change)="fileChangeEvent($event)" accept="image/*" #file>
-
-
 
                         <form [formGroup]="formCreate.getForm()">
                             <div class="row">
+
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">หัวข้อ</label>
-                                        <input type="text" formControlName="topic" [class]="formCreate.hasError('topic') ? 'form-control is-invalid':'form-control'" placeholder="หัวข้อ Topic">
+                                        <label for="exampleInputEmail1">Title</label>
+                                        <input type="text" formControlName="topic" [class]="formCreate.hasError('topic') ? 'form-control is-invalid':'form-control'"
+                                            placeholder="Title">
                                         <div class="invalid-feedback" *ngIf="formCreate.hasError('topic')">
                                             {{formCreate.getError('topic')}}
                                         </div>
-
                                     </div>
                                 </div>
-                                <div class="col-md-9">
+
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="exampleInputPassword1">รายละเอียดหัวข้อ</label>
-                                        <input type="text" formControlName="description" [class]="formCreate.hasError('description') ? 'form-control is-invalid':'form-control'" id="exampleInputPassword1" placeholder="รายละเอียดหัวข้อ">
-                                        <div class="invalid-feedback" *ngIf="formCreate.hasError('description')">
-                                            {{formCreate.getError('topic')}}
+                                        <label for="exampleInputEmail1">Color</label>
+                                        <input class="colorInput" formControlName="color" [(colorPicker)]="color" [style.background]="color" [value]="color" [(ngModel)]="color"
+                                            [class]="formCreate.hasError('color') ? 'form-control is-invalid':'form-control'"
+                                            placeholder="Color" />
+                                        <div class="invalid-feedback" *ngIf="formCreate.hasError('color')">
+                                            {{formCreate.getError('color')}}
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Description</label>
+                                        <input type="text" formControlName="description" [class]="formCreate.hasError('description') ? 'form-control is-invalid':'form-control'"
+                                            id="exampleInputPassword1" placeholder="Description">
+                                        <div class="invalid-feedback" *ngIf="formCreate.hasError('description')">
+                                            {{formCreate.getError('description')}}
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-
-
-                            <button type="submit" class="btn btn-primary" (click)="save()">Save</button>
+                            <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="save()">Save</button>
                         </form>
                     </div>
-
-
-
-
-
                 </div>
             </div>
+
             <div class="card-body" *ngIf="listTopic.length > 0">
                 <div class="table-responsive">
                     <table class="table table-hover" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-
                                 <th>Topic</th>
                                 <th>Description</th>
-                                <th>picture</th>
+                                <th *ngIf="ref">Picture</th>
+                                <th>Color</th>
                                 <th>สร้างโดย</th>
-
 
                                 <th>Create</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
+
                         <tfoot *ngIf="listTopic.length > 10">
                             <tr>
-
                                 <th>Topic</th>
                                 <th>Description</th>
-                                <th>picture</th>
+                                <th *ngIf="ref">Picture</th>
+                                <th>Color</th>
                                 <th>สร้างโดย</th>
 
                                 <th>Create</th>
                                 <th>Action</th>
-
                             </tr>
                         </tfoot>
+
                         <tbody>
                             <tr *ngFor="let topic of listTopic;let i = index">
-
-
                                 <td>{{topic.topic}}</td>
                                 <td>{{topic.description}}</td>
-                                <td><img [src]="app.urlImg+(topic.picture ? topic.picture:'nopic.jpg') " width="200" height="70" alt=""></td>
+                                <td *ngIf="ref">
+                                    <img [src]="topic.picture">
+                                </td>
+                                <td>
+                                    <div class="catColor" [ngStyle]="{'background': topic.color}"></div>
+                                </td>
                                 <td>{{topic.user_id.firstname}} {{topic.user_id.lastname}}</td>
-
                                 <td>{{ topic.time | date }} </td>
                                 <td>
-                                    <a href="javascript:void(0)" [routerLink]="['/dashboard',topic._id]"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                    <a href="javascript:void(0)" (click)="getUpdate(topic,i)" data-toggle="modal" data-target="#update"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                    <a href="javascript:void(0)" (click)="del(topic,i)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                    <a href="javascript:void(0)" [routerLink]="['/dashboard',topic._id]">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="javascript:void(0)" (click)="getUpdate(topic, i)" data-toggle="modal" data-target="#update">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </a>
+                                    <a href="javascript:void(0)" (click)="del(topic,i)">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
                                 </td>
                             </tr>
-
                         </tbody>
+
                     </table>
                 </div>
             </div>
@@ -125,54 +138,59 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fa fa-angle-up"></i>
     </a>
-
-
-
 </div>
-
 
 <div class="modal modalUpdate fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Update Topic</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
+                    <span aria-hidden="true">×</span>
                 </button>
             </div>
+
             <div class="modal-body">
 
-                <div class="custom-component-drop-zone">
-                    <img class="upload" #img *ngIf="croppedImage" [src]="croppedImage" />
+                <div *ngIf="ref">
+                    <img-cropper [image]="dataCover" [settings]="cropCover"></img-cropper>
+                    <br>
+                    <!-- <img *ngIf="dataCover.image" [src]="dataCover.image" [width]="cropCover.croppedWidth" [height]="cropCover.croppedHeight"> -->
                 </div>
-                <image-cropper *ngIf="statusCrop" [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false" [resizeToWidth]="1200" format="png" (imageCropped)="imageCropped($event)"></image-cropper>
-                <input type="file" (change)="fileChangeEvent($event)" accept="image/*" #file>
-
-
 
                 <form [formGroup]="formUpdate.getForm()">
+
                     <div class="form-group">
-                        <label for="exampleInputEmail1">หัวข้อ</label>
-                        <input type="text" formControlName="topic" [class]="formCreate.hasError('topic') ? 'form-control is-invalid':'form-control'" placeholder="หัวข้อ Topic">
+                        <label for="exampleInputEmail1">Title</label>
+                        <input type="text" formControlName="topic" [class]="formCreate.hasError('topic') ? 'form-control is-invalid':'form-control'"
+                            placeholder="Title">
                         <div class="invalid-feedback" *ngIf="formCreate.hasError('topic')">
                             {{formCreate.getError('topic')}}
                         </div>
-
                     </div>
+
                     <div class="form-group">
-                        <label for="exampleInputPassword1">รายละเอียดหัวข้อ</label>
-                        <input type="text" formControlName="description" [class]="formCreate.hasError('description') ? 'form-control is-invalid':'form-control'" id="exampleInputPassword1" placeholder="รายละเอียดหัวข้อ">
-                        <div class="invalid-feedback" *ngIf="formCreate.hasError('description')">
-                            {{formCreate.getError('topic')}}
+                        <label for="exampleInputEmail1">Color</label>
+                        <input class="colorInput" formControlName="color" [(colorPicker)]="color" [style.background]="color" [value]="color" [(ngModel)]="color"
+                            [class]="formCreate.hasError('color') ? 'form-control is-invalid':'form-control'" placeholder="Color"
+                        />
+                        <div class="invalid-feedback" *ngIf="formCreate.hasError('color')">
+                            {{formCreate.getError('color')}}
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Description</label>
+                        <input type="text" formControlName="description" [class]="formCreate.hasError('description') ? 'form-control is-invalid':'form-control'"
+                            id="exampleInputPassword1" placeholder="Description">
+                        <div class="invalid-feedback" *ngIf="formCreate.hasError('description')">
+                            {{formCreate.getError('description')}}
+                        </div>
+                    </div>
+
                 </form>
-
-
-
-
             </div>
-
 
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
@@ -181,5 +199,4 @@
         </div>
     </div>
 </div>
-<!-- <jaspero-alerts></jaspero-alerts> -->
 <jaspero-confirmations></jaspero-confirmations>
