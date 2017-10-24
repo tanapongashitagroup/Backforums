@@ -1,0 +1,88 @@
+<div class="content-wrapper" [style.background]="'#eeeeee'">
+    <div class="container-fluid topPage">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-left">
+                    <h3>Post List</h3>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="javascript:void(0);" routerLink="/control">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active">Post List</li>
+                    </ol>
+                </div>
+                <div class="topBtn">
+                    <button class="btn btn-primary" routerLink="newpost">
+                        <i class="fa fa-plus-square" aria-hidden="true"></i> New Post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="iBox">
+                    <div class="fullBox">
+                        <div class="SearchForm">
+                            <div class="sGroup">
+                                <input type="search" placeholder="ค้นหา..." [formControl]="txtSearch">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row el-element-overlay">
+            <div class="col-sm-6 col-lg-4 col-xl-3" *ngFor="let p of listPost; let i = index">
+                <div class="card">
+                    <div class="el-card-item cmslist">
+                        <div class="el-card-avatar el-overlay-4-3">
+                            <div class="thumb">
+                                <div class="evtimg">
+                                    <img [src]="p.cover" alt="user" width="246" height="184">
+                                </div>
+                            </div>
+                            <div class="el-overlay">
+                                <ul class="el-info">
+                                    <!-- <li>
+                                        <a class="btn  btn-outline" href="javascript:void(0);" target="_blank" routerLink="/blog/content/{{p.slug}}">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </a>
+                                    </li> -->
+                                    <li>
+                                        <a class="btn  btn-outline" href="javascript:void(0);" routerLink="editpost/{{p._id}}">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                    <li *ngIf="p.status == 'draft'">
+                                        <a class="btn  btn-outline" href="javascript:void(0);" (click)="delinfo(p, i)">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="el-card-content">
+                            <h3 class="box-title">{{p.title.th}}</h3>
+                            <div class="state published" *ngIf="p.status != 'draft'">
+                                เผยแพร่แล้ว {{app.convertTime(p.date) | date: 'dd MMM yyyy'}}
+                                <br>
+                            </div>
+
+                            <div class="state wait" *ngIf="p.status == 'draft'">
+                                <button class="btn btn-sm btn-primary" (click)="publicPost(p._id, i)">เผยแพร่</button> รอการเผยแพร่
+                                <br>
+                            </div>
+
+                            <div class="postby">{{p.staff_id.firstname+' '+p.staff_id.lastname}}</div>
+                            <!-- <div class="stat">{{ (p.pageview) ? app.numberFormate(p.pageview) : 0 }}</div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

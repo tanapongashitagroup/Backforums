@@ -25,29 +25,47 @@
       <div class="card-body">
         <div class="table-responsive">
           <table class="table table-hover" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th>Topic</th>
-                <th>Action</th>
-              </tr>
-            </thead>
 
-            <tbody>
-              <tr *ngFor="let topic of listTopic;let i = index">
-                <td>{{topic.topic}}</td>
-                <td>
-                  <a href="javascript:void(0)" data-toggle="modal" data-target="#addSubTopic" (click)="getTopic(topic)">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                  </a>
-                  <a href="javascript:void(0)" (click)="getUpdate(topic, i)" data-toggle="modal" data-target="#update">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                  </a>
-                  <a href="javascript:void(0)" (click)="del(topic,i)">
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
+            <div class="container">
+              <dl>
+                <dt>
+                  <span>Topic</span>
+                  <span class="pull-right">Action</span>
+                </dt>
+              </dl>
+              <hr/>
+              <dl *ngFor="let topic of listTopic;let i = index">
+                <dt>
+                  <span>{{topic.topic}}</span>
+                  <span class="pull-right">
+                    <a href="javascript:void(0)" data-toggle="modal" data-target="#addSubTopic" (click)="getTopic(topic)">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </a>
+                    <a href="javascript:void(0)" (click)="getTopic(topic, i)" data-toggle="modal" data-target="#editTopic">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </a>
+                    <a href="javascript:void(0)" (click)="deleteTopic(topic, i)">
+                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+                  </span>
+                </dt>
+                <dd *ngFor="let sub of topic.subTopic">
+                  <span>- {{sub.topic}} ({{sub.sumReport}})</span>
+                  <span class="pull-right">
+                    <a href="javascript:void(0)" routerLink="/dashboard/report-views/{{sub._id}}">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                    <a href="javascript:void(0)" (click)="getTopic(sub, i)" data-toggle="modal" data-target="#editTopic">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    </a>
+                    <a href="javascript:void(0)" (click)="deleteTopic(sub, i)">
+                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+                  </span>
+                </dd>
+              </dl>
+
+            </div>
 
           </table>
         </div>
@@ -68,7 +86,32 @@
   </a>
 </div>
 
-<div class="modal fade modalEmail" id="addSubTopic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- edit topic -->
+<div class="modal fade modalEditTopic" id="editTopic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Topic</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <input type="text" class="form-control" id="recipient-name" placeholder="add sub topic" [(ngModel)]="edit_topic">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateTopic()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal sub topic -->
+<div class="modal fade modalAddSubTopic" id="addSubTopic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

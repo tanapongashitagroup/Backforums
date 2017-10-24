@@ -1,0 +1,56 @@
+<div class="content-wrapper">
+  <div class="container-fluid">
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" routerLink="/dashboard/report">
+        <a href="javascript:void(0)">Config Report</a>
+      </li>
+      <li class="breadcrumb-item active">{{topic}}</li>
+    </ol>
+
+    <!-- Example DataTables Card-->
+    <div class="card mb-3">
+      <div class="card-header">
+        Report Topic: {{topic}}</div>
+      <div class="card-body">
+
+        <div class="container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Comment</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let rep of listReport">
+                <td>{{rep.comment}}</td>
+                <td>{{rep.email}}</td>
+                <td>{{rep.phone}}</td>
+                <td>{{ (rep.date * 1000) | date : 'medium'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      <div class="card-footer small text-muted"></div>
+    </div>
+  </div>
+  <!-- /.container-fluid-->
+  <!-- /.content-wrapper-->
+  <footer class="sticky-footer">
+    <div class="container">
+      <div class="text-center">
+        <small>Copyright © Your Website 2017</small>
+      </div>
+    </div>
+  </footer>
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+  </a>
+
+</div>

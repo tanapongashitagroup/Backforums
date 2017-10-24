@@ -1,0 +1,98 @@
+<div class="content-wrapper" [style.background]="'#eeeeee'">
+
+    <div class="container-fluid topPage">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="pull-left">
+                    <h3>Manage Categories</h3>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="javascript:void(0);" routerLink="/control">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="javascript:void(0);" routerLink="/control/cms">Post List</a>
+                        </li>
+                        <li class="breadcrumb-item active">Manage Categories</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12 col-xl-9">
+                <div class="iBox">
+                    <div class="customBox">
+                        <div class="customBoxForm">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Add New Catalog" [(ngModel)]="cat_th">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-dark" type="button" (click)="genSlug()">Gen Slug</button>
+                                </span>
+                            </div>
+                            <div class="form-group mgt15">
+                                <small>You can edit slug & it will appear at address bar</small>
+                                <input type="text" class="form-control" [(ngModel)]="slug">
+                                <span class="small text-muted">http://www.domainname.com/blog/catalog/slug</span>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-6">
+                                    <div class="postCV">
+                                        <div class="evtimg">
+                                            <img-cropper [image]="dataIcon" [settings]="cropIcon"></img-cropper>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="textExplain">
+                                        Catalog Cover ดึงดูดผู้คนให้เข้าชมหรืออ่านเนื้อหาของคุณด้วยภาพหน้าปกสวยๆ โดยขนาดของรูปภาพที่แนะนำคือ 1920x840 pixels ซึ่งอยู่ในนามสกุล
+                                        jpg png
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="textExplain mb-3">
+                                        หรือคุณอาจเลือก สีเพื่อเป็นพื้นหลังกรณีที่คุณไม่ได้ update Catalog Cover แนะนำให้เลือกสีที่ตัดกับสีขาว
+                                    </div>
+
+                                    <input class="colorInput" [(colorPicker)]="color" [style.background]="color" [value]="color" [(ngModel)]="color" />
+
+                                </div>
+                            </div>
+
+                            <div class="form-group mgb0">
+                                <button type="button" class="btn btn-lg btn-primary btn-block" *ngIf="_id == null" (click)="submit()">Save</button>
+                                <button type="button" class="btn btn-lg btn-primary btn-block" *ngIf="_id != null" (click)="update()">Update</button>
+                                <small class="form-text text-center text-danger" *ngIf="response != 'success' && response != null">{{response}}</small>
+                                <small class="form-text text-center text-success" *ngIf="response == 'success'">{{response}}</small>
+                            </div>
+                        </div>
+                        <ul class="catList">
+                            <li *ngFor="let c of listCategories; let i = index">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="cvCat">
+                                            <div class="evtimg">
+                                                <img *ngIf="c.cover" [src]="app.urlWeb+c.cover">
+                                            </div>
+                                        </div>
+                                        <div class="CatName">{{c.catName.th}}</div>
+                                        <div class="showSlug">{{c.slug}}</div>
+                                    </div>
+                                    <div class="col-sm-6 text-right pt-4">
+                                        <div class="catColor" [ngStyle]="{'background': c.color}"></div>
+                                        <div class="numPost">{{c.num}}</div>
+                                        <button class="btn btn-sm btn-info" (click)="getCategoriesByID(c._id, i)">Edit</button>
+                                        <button class="btn btn-sm btn-danger" (click)="delCategoriesByID(c._id, i)">Delete</button>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
