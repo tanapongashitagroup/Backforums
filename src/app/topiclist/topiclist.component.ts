@@ -47,13 +47,13 @@ export class TopiclistComponent implements OnInit {
 
 
   formCreate = new ValidationManager({
-    'topic': 'required|maxLength:20',
+    'topic': 'required',
     'description': 'required',
     'color': 'required|maxLength:20',
   });
 
   formUpdate = new ValidationManager({
-    'topic': 'required|maxLength:20',
+    'topic': 'required',
     'description': 'required',
     'color': 'required|maxLength:20',
   });

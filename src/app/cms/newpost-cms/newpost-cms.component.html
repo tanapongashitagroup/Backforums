@@ -1,0 +1,99 @@
+<div class="content-wrapper" [style.background]="'#eeeeee'">
+
+  <div class="container-fluid topPage">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="pull-left">
+          <h3>New Post</h3>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="javascript:void(0);" routerLink="/control">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="javascript:void(0);" routerLink="/control/cms">Post List</a>
+            </li>
+            <li class="breadcrumb-item active">New Post</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="iBox">
+          <div class="customBox">
+            <div class="customBoxForm">
+              <div class="form-group">
+                <label>TITLE</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Place your Post Title here..." [(ngModel)]="title_th">
+                  <span class="input-group-btn">
+                    <button class="btn btn-dark" type="button" (click)="genSlug()">Gen Slug</button>
+                  </span>
+                </div>
+              </div>
+              <div class="form-group mgb0">
+                <small>You can edit slug & it will appear at address bar</small>
+                <input type="text" class="form-control" [(ngModel)]="slug">
+                <span class="small text-muted">http://www.domainname.com/blog/content/slug</span>
+              </div>
+            </div>
+
+            <div class="customBoxContent">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="postCV">
+                    <div class="evtimg">
+                      <img-cropper [image]="dataCover" [settings]="cropCover"></img-cropper>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="textExplain">
+                    Post Cover ดึงดูดผู้คนให้เข้าชมหรืออ่านเนื้อหาของคุณด้วยภาพหน้าปกสวยๆ โดยขนาดของรูปภาพที่แนะนำคือ 1200x900 pixels หรืออยู่ในสัดส่วน
+                    4:3 ซึ่งอยู่ในนามสกุล jpg png
+                  </div>
+                </div>
+              </div>
+
+              <div class="formgroup mt-3">
+                <label class="d-block">POST DETAILS</label>
+                <div class="wordspace" [froalaEditor]="contentOptions" [(froalaModel)]="content_th">
+                </div>
+
+                <div class="formgroup mt-3">
+                  <label class="d-block">ADD TAGS</label>
+                  <tag-input [(ngModel)]='tags' [separatorKeyCodes]="[32]" (onTagEdited)="onTagEdited($event)"></tag-input>
+                </div>
+
+                <div class="form-group mt-5">
+                  <button type="button" class="btn btn-lg btn-primary btn-block" (click)="submit()">Save</button>
+                  <small class="form-text text-center text-danger" *ngIf="response != 'success' && response != null">{{response}}</small>
+                  <small class="form-text text-center text-success" *ngIf="response == 'success'">{{response}}</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="endFoot">
+              <p>
+                <b>Title</b> สั้น กระชับ ควรใช้คำที่กระตุ้นอารมณ์ผู้พบเห็นให้อยากคลิ๊กเข้าไปชมหรืออ่าน</p>
+              <p>
+                <b>Post Details</b> คือส่วนของบทความที่คุณสามารถเพิ่มเนื้อหาที่เป็น</p>
+              <ul>
+                <li>อักขระ</li>
+                <li>รูปภาพ</li>
+                <li>video จาก youtube</li>
+              </ul>
+              <p>
+                <b>Post Tags</b> เป็น keyword หรือคำค้นที่ช่วยให้ ผู้อ่านสามารถค้นหาบทความหรือเนื้อหาที่เกี่ยวข้อง อีกทั้งยังช่วยเรื่องการตลาดที่ยั่งยืนกับ
+                Search Engine เช่น Google เราเรียกว่า SEO (Search Engine Optimization) เราแนะนำให้ควรมี tags 3-5 คำ</p>
+              <p>
+                <b>Submit</b> เป็นการบันทึกบทความลงฐานข้อมูล แต่ยังไม่เผยแพร่สู่สาธารณะ อาจเป็นเพราะเนื้อหายังไม่สมบูรณ์ หรืออยากเก็บไว้เผยแพร่ตามช่วงเวลาที่เหมาะสม</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

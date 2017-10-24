@@ -1,0 +1,67 @@
+<div class="content-wrapper">
+  <div class="container-fluid">
+    <div class="card mb-3">
+      <div class="card-header">แจ้งข้อความไม่เหมาะสม</div>
+      <div class="card-body">
+
+        <div class="radio" *ngFor="let top of listTopic">
+          <label>
+            <input type="radio" name="topic" (click)="selectTopic(top)"> {{ top.topic }}
+          </label>
+        </div>
+
+        <span *ngIf="listSupTopic != ''">
+          <hr>
+          <div class="form-group">
+            <label for="comment">เนื่องจาก</label>
+            <div class="radio" *ngFor="let sub of listSupTopic">
+              <label>
+                <input type="radio" name="subtopic" (click)="selectSubTopic(sub)"> {{ sub.topic }}
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="comment">ระบุเหตุผลของคุณเพิ่มเติมเพื่อประกอบการตัดสินใจของทีมงาน</label>
+            <textarea class="form-control" rows="5" name="comment" [(ngModel)]="comment"></textarea>
+          </div>
+          <hr>
+          <label for="comment">ขอให้ทีมงานพิจารณาดำเนินการกับข้อความที่ไม่เหมาะสมของกระทู้นี้</label>
+          <div class="form-group row">
+            <label for="example-text-input" class="col-2 col-form-label">อีเมลติดต่อ</label>
+            <div class="col-10">
+              <input class="form-control" type="text" id="example-text-input" [(ngModel)]="email">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="example-text-input" class="col-2 col-form-label"> เบอร์ติดต่อ</label>
+            <div class="col-10">
+              <input class="form-control" type="text" id="example-text-input" [(ngModel)]="phone" name="phone">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <span class="text-danger" *ngIf="response != 'success'">{{response}}</span>
+            <span class="text-success" *ngIf="response == 'success'">{{response}}</span>
+            <button type="submit" class="btn btn-primary pull-right" (click)="sendReport()">แจ้งข้อความไม่เหมาะสม</button>
+          </div>
+        </span>
+
+      </div>
+      <div class="card-footer small text-muted"></div>
+    </div>
+    <br>
+    <br>
+    <br>
+
+
+  </div>
+  <!-- /.content-wrapper-->
+  <footer class="sticky-footer">
+    <div class="container">
+      <div class="text-center">
+        <small>Copyright © Your Website 2017</small>
+      </div>
+    </div>
+  </footer>
+</div>

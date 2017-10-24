@@ -5,8 +5,12 @@ import { CookieService } from 'ngx-cookie';
 @Injectable()
 export class AppService {
 
-  url: string = "http://localhost:1712/api"
-  urlImg: string = "http://localhost:1712";
+  // url: string = "http://localhost:1712/api"
+  url: string = "http://192.168.1.35:1712/api"
+
+  // urlImg: string = "http://localhost:1712";
+  urlImg: string = "http://192.168.1.35:1712";
+
   servImg: string = "http://img.ashita.io";
 
   constructor(private http: HttpClient, private cookie: CookieService, private _alert: AlertsService) { }
@@ -75,5 +79,34 @@ export class AppService {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     return re.test(email)
   }
+
+  isEmpty(str: string) {
+    return typeof str == 'string' && !str.trim() || typeof str == 'undefined' || str === null || str.length == 0
+  }
+
+  urlEncode(string: string) {
+    var text = string.toString().toLowerCase()
+      .replace(/\s+/g, '-')           // Replace spaces with -
+      .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+      .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+      .replace(/^-+/, '')             // Trim - from start of text
+      .replace(/-+$/, '');            // Trim - from end of text 
+
+    if (text.length > 4) {
+      return text
+    } else {
+      return text + this.getTime()
+    }
+  }
+
+  getTime() {
+    var d = new Date();
+    return Math.floor(d.getTime() / 1000);
+  }
+
+  convertTime(date: any) {
+    return date * 1000;
+  }
+
 
 }

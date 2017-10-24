@@ -1,0 +1,137 @@
+@mixin CVratio($width, $height) {
+    position: relative;
+    &:before{
+        display: block;
+        content: " ";
+        width: 100%;
+        padding-top: ($height / $width) * 100%;
+    }
+
+    > .evtimg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+		> img, > a img{
+            width:100%; 
+            display:block;
+        }
+    }
+}
+.textExplain{
+    //font-size:0.8rem;
+    padding:0.5rem;
+    background:rgba(0,0,0,0.03);
+    border-radius:3px;
+    color: #868e96;
+    border:1px dashed rgba(0,0,0,0.1);
+}
+.colorInput{
+    width:120px;
+    height: 36px;
+    padding:4px 8px;
+    border:1px solid #ddd;
+    border-radius:2px;
+    cursor: pointer;
+    &:focus{
+        outline: none;
+    }
+}
+.postCV{
+    background:#ddd;
+    @include CVratio(1920,840);
+    border-radius:3px;
+    overflow:hidden;
+}
+.custompadd{
+    margin-left:-15px;
+    margin-top:-15px;
+    margin-right:-15px;
+}
+.cvCat{
+    width:120px;
+    background:#eee;
+    @include CVratio(1920,840);
+    border-radius:3px;
+    overflow:hidden;
+    float:left;
+    margin-right:15px;
+}
+.CatName{
+    font-weight:bold; 
+    font-size:1.2rem; 
+    color:#54667a;
+    width:calc(100% - 135px);
+    display:block;
+    float: left;
+    margin-bottom:0.5rem;
+}
+.showSlug{
+    font-size:0.8rem;
+    padding:0.5rem;
+    background:rgba(0,0,0,0.03);
+    border-radius:3px;
+    color: #868e96;
+    border:1px dashed rgba(0,0,0,0.1);
+    width:calc(100% - 135px);
+    display:block;
+    float: left;
+}
+.catColor{
+    float:left;
+    width:26px;
+    height: 26px;
+    background: #eeeeee;
+    margin-right:5px;
+}
+.numPost{
+    float:left;
+    line-height:26px;
+    color: #868e96;
+    &:before{
+        content:"\f024";
+        font-family: FontAwesome;
+        margin-right:5px;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    &:after{
+        content:"Post(s)";
+        margin-left:5px;
+    }
+}
+
+.fileContainer {
+    overflow: hidden;
+    position: relative;
+}
+
+.fileContainer [type=file] {
+    cursor: inherit;
+    display: block;
+    font-size: 999px;
+    filter: alpha(opacity=0);
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+}
+
+/* Example stylistic flourishes */
+
+.fileContainer {
+    background:#adb5bd;
+    border-radius: 2px;
+    padding: .5em 2em;
+    display:block;
+    color:#fff !important;
+}
+
+.fileContainer [type=file] {
+    cursor: pointer;
+}
