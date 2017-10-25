@@ -7,26 +7,24 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-
-                <a routerLink="/dashboard" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePost" data-parent="#exampleAccordion">
-                    <i class="fa fa-fw fa-dashboard"></i>
-                    <span class="nav-link-text">จัดการหัวข้อ</span>
-                </a>
-                <ul class="sidenav-second-level collapse" id="collapsePost">
-                    <li>
-                        <a href="javascript:void(0)">สร้าง</a>
-                    </li>
-
-                </ul>
                 <a routerLink="/dashboard/permission" class="nav-link nav-link-collapse ">
                     <i class="fa fa-fw fa-dashboard"></i>
                     <span class="nav-link-text">Permission</span>
                 </a>
+            </li>
+
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
                 <a routerLink="/dashboard/member" class="nav-link nav-link-collapse ">
                     <i class="fa fa-fw fa-dashboard"></i>
-                    <span class="nav-link-text">member</span>
+                    <span class="nav-link-text">Manage Member</span>
                 </a>
+            </li>
 
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <a routerLink="/dashboard" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePost" data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-dashboard"></i>
+                    <span class="nav-link-text">Manage Topic</span>
+                </a>
             </li>
 
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage Post">
@@ -36,25 +34,22 @@
                 </a>
                 <ul class="sidenav-second-level collapse" id="managePost">
                     <li>
-                        <a routerLink="/dashboard/managepost">Manage Post</a>
+                        <a routerLink="/dashboard/managepost">List Post</a>
                     </li>
-                    <!-- <li>
-                            <a routerLink="/dashboard/report-example">Example report</a>
-                        </li> -->
                 </ul>
             </li>
 
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage report">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#manageReport" data-parent="#exampleAccordion">
                     <i class="fa fa-fw fa-file"></i>
-                    <span class="nav-link-text">Manage report</span>
+                    <span class="nav-link-text">Manage Report</span>
                 </a>
                 <ul class="sidenav-second-level collapse" id="manageReport">
                     <li>
-                        <a routerLink="/dashboard/report">Config report</a>
+                        <a routerLink="/dashboard/report">Config Report</a>
                     </li>
                     <li>
-                        <a routerLink="/dashboard/report-example">Example report</a>
+                        <a routerLink="/dashboard/report-example">Example Report</a>
                     </li>
                 </ul>
             </li>
@@ -63,7 +58,15 @@
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#manageLevel" data-parent="#exampleAccordion"
                     routerLink="/dashboard/managelevel">
                     <i class="fa fa-fw fa-file"></i>
-                    <span class="nav-link-text">Manage level</span>
+                    <span class="nav-link-text">Config Level</span>
+                </a>
+            </li>
+
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Manage report">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#managePageview" data-parent="#exampleAccordion"
+                    routerLink="/dashboard/config-pageviews">
+                    <i class="fa fa-fw fa-file"></i>
+                    <span class="nav-link-text">Config Pageviews</span>
                 </a>
             </li>
 
