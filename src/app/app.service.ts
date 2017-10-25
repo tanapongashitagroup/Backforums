@@ -7,10 +7,6 @@ export class AppService {
 
   // url: string = "http://localhost:1712/api"
   url: string = "http://192.168.1.35:1712/api"
-
-  // urlImg: string = "http://localhost:1712";
-  urlImg: string = "http://192.168.1.35:1712";
-
   servImg: string = "http://img.ashita.io";
 
   constructor(private http: HttpClient, private cookie: CookieService, private _alert: AlertsService) { }

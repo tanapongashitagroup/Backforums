@@ -37,6 +37,7 @@ import { CategoriesCMSComponent } from './cms/categories-cms/categories-cms.comp
 import { PostlistCMSComponent } from './cms/postlist-cms/postlist-cms.component';
 import { NewpostCMSComponent } from './cms/newpost-cms/newpost-cms.component';
 import { EditpostCMSComponent } from './cms/editpost-cms/editpost-cms.component';
+import { ConfigPageviewsComponent } from './config-pageviews/config-pageviews.component';
 
 
 const Routing = RouterModule.forRoot([
@@ -53,6 +54,7 @@ const Routing = RouterModule.forRoot([
       { path: 'report-views/:_id', component: ReportViewsComponent },
       { path: 'report-example', component: ReportExampleComponent },
       { path: 'managelevel', component: ManageLevelComponent },
+      { path: 'config-pageviews', component: ConfigPageviewsComponent },
 
       {
         path: 'managepost',
@@ -92,7 +94,8 @@ const Routing = RouterModule.forRoot([
 
     PostlistCMSComponent,
     NewpostCMSComponent,
-    EditpostCMSComponent
+    EditpostCMSComponent,
+    ConfigPageviewsComponent
   ],
   imports: [
     BrowserAnimationsModule,

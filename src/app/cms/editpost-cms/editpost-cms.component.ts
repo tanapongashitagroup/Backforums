@@ -38,12 +38,12 @@ export class EditpostCMSComponent implements OnInit {
 
   ngOnInit() {
     this.cropCover = new CropperSettings();
-    this.cropCover.width = 800; // ตัว crop
+    this.cropCover.width = 1000; // ตัว crop
     this.cropCover.height = 600;
-    this.cropCover.croppedWidth = 1200;  // ขนาดรูปที่ save ออกมา
-    this.cropCover.croppedHeight = 900;
-    this.cropCover.canvasWidth = 520;  // กล่องตัว upload
-    this.cropCover.canvasHeight = 390;
+    this.cropCover.croppedWidth = 1000;  // ขนาดรูปที่ save ออกมา
+    this.cropCover.croppedHeight = 600;
+    this.cropCover.canvasWidth = 500;  // กล่องตัว upload
+    this.cropCover.canvasHeight = 300;
     this.dataCover = {};
 
     this.route.params.subscribe(res => {
