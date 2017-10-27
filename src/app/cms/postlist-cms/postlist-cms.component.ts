@@ -26,6 +26,8 @@ export class PostlistCMSComponent implements OnInit {
     this.app.get('/cms/getAllPost').subscribe(data => {
       this.listPost = data['msg'];
       this.listDefault = data['msg'];
+
+      console.log(this.listPost)
     })
   }
 
