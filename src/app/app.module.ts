@@ -38,6 +38,12 @@ import { PostlistCMSComponent } from './cms/postlist-cms/postlist-cms.component'
 import { NewpostCMSComponent } from './cms/newpost-cms/newpost-cms.component';
 import { EditpostCMSComponent } from './cms/editpost-cms/editpost-cms.component';
 import { ConfigPageviewsComponent } from './config-pageviews/config-pageviews.component';
+import { Ads1Component } from './ads/ads1/ads1.component';
+import { Ads2Component } from './ads/ads2/ads2.component';
+import { Ads3Component } from './ads/ads3/ads3.component';
+import { Ads4Component } from './ads/ads4/ads4.component';
+import { MyDatePickerModule } from 'mydatepicker';
+import { AdsTextComponent } from './ads/ads-text/ads-text.component';
 
 
 const Routing = RouterModule.forRoot([
@@ -55,6 +61,17 @@ const Routing = RouterModule.forRoot([
       { path: 'report-example', component: ReportExampleComponent },
       { path: 'managelevel', component: ManageLevelComponent },
       { path: 'config-pageviews', component: ConfigPageviewsComponent },
+
+      {
+        path: 'manageads',
+        children: [
+          { path: '', component: Ads1Component },
+          { path: 'ads2', component: Ads2Component },
+          { path: 'ads3', component: Ads3Component },
+          { path: 'ads4', component: Ads4Component },
+          { path: 'adstopic', component: AdsTextComponent },
+        ]
+      },
 
       {
         path: 'managepost',
@@ -95,7 +112,12 @@ const Routing = RouterModule.forRoot([
     PostlistCMSComponent,
     NewpostCMSComponent,
     EditpostCMSComponent,
-    ConfigPageviewsComponent
+    ConfigPageviewsComponent,
+    Ads1Component,
+    Ads2Component,
+    Ads3Component,
+    Ads4Component,
+    AdsTextComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -114,7 +136,8 @@ const Routing = RouterModule.forRoot([
     ColorPickerModule,
     JasperoSelectModule,
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
-    TagInputModule
+    TagInputModule,
+    MyDatePickerModule
   ],
   providers: [AppService],
   bootstrap: [AppComponent]

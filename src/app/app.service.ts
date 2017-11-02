@@ -5,6 +5,10 @@ import { CookieService } from 'ngx-cookie';
 @Injectable()
 export class AppService {
 
+  dd: any
+  mm: any
+  yyyy: any
+
   // url: string = "http://localhost:1712/api"
   url: string = "http://192.168.1.35:1712/api"
   servImg: string = "http://img.ashita.io";
@@ -102,6 +106,31 @@ export class AppService {
 
   convertTime(date: any) {
     return date * 1000;
+  }
+
+  getYMDByTimeStamp(date: string, type: string) {
+    var new_date = this.convertTime(date);
+    this.dd = new Date(new_date).getDate();
+    this.mm = new Date(new_date).getMonth() + 1;
+    this.yyyy = new Date(new_date).getFullYear();
+
+    if (this.dd < 10) {
+      // this.dd = '0' + this.dd;
+      this.dd = this.dd;
+    }
+
+    if (this.mm < 10) {
+      // this.mm = '0' + this.mm;
+      this.mm = this.mm;
+    }
+
+    if (type == 'd') {
+      return this.dd;
+    } else if (type == 'm') {
+      return this.mm;
+    } else {
+      return this.yyyy;
+    }
   }
 
 

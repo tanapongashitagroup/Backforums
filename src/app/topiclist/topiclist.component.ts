@@ -73,7 +73,7 @@ export class TopiclistComponent implements OnInit {
     this.ar.params.subscribe(p => {
       if (p['ref']) {
         this.ref = p['ref'];
-        this.app.get('/post/topic/' + this.ref + '?accessToken=' + this.app.getToken()).subscribe((data: any) => {
+        this.app.get('/topic/getTopicByID/' + this.ref + '?accessToken=' + this.app.getToken()).subscribe((data: any) => {
           if (data['obj']) {
             this.listTopic = data['obj'];
             this.dataTopic = data['topic']
@@ -81,7 +81,7 @@ export class TopiclistComponent implements OnInit {
         })
       } else {
 
-        this.app.get('/post/topic?accessToken=' + this.app.getToken()).subscribe((data: any) => {
+        this.app.get('/topic/getHeadTopic').subscribe((data: any) => {
           if (data) {
             this.listTopic = data;
           }

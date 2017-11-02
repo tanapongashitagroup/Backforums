@@ -1,0 +1,191 @@
+<div class="content-wrapper" [style.background]="'#eeeeee'">
+  <div class="container-fluid">
+
+    <div class="card mb-3">
+      <div class="card-header">
+        <h5>Manage Ads Size 640x320
+          <button type="button" class="btn btn-sm btn-primary pull-right" data-toggle="collapse" data-target="#create">create</button>
+        </h5>
+      </div>
+
+      <div class="collapse multi-collapse" id="create">
+        <div class="card">
+          <div class="card-body">
+
+            <div>
+              <img-cropper #cropper [image]="dataCover" [settings]="cropCover"></img-cropper>
+              <br>
+            </div>
+            <br>
+            <div class="form-group row">
+              <label for="example-text-input" class="col-1 col-form-label">Name</label>
+              <div class="col-2">
+                <input class="form-control" type="text" id="example-text-input" [(ngModel)]="name">
+              </div>
+              <label for="example-text-input" class="col-1 col-form-label">Link</label>
+              <div class="col-3">
+                <input class="form-control" type="text" id="example-text-input" [(ngModel)]="link">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="example-text-input" class="col-4 col-form-label">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optradio" (click)="selectType('perclick')" checked="checked"> Per click</label>
+                  <label>
+                    <input type="radio" name="optradio" (click)="selectType('month')"> For month</label>
+                </div>
+              </label>
+            </div>
+
+            <div class="form-group row" *ngIf="type == 'perclick'">
+              <label for="example-text-input" class="col-1 col-form-label">Click Limit</label>
+              <div class="col-3">
+                <input class="form-control" type="number" id="example-text-input" [(ngModel)]="click_limit">
+              </div>
+              <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="addAds()">Create</button>
+            </div>
+
+            <div class="form-group row" *ngIf="type != 'perclick'">
+              <label for="example-text-input" class="col-1 col-form-label">Date EXP</label>
+              <div class="col-3">
+                <my-date-picker name="date_end" [options]="myDatePickerOptions" [(ngModel)]="date_exp" required></my-date-picker>
+              </div>
+              <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="addAds()">Create</button>
+            </div>
+
+            <div class="form-group row">
+              <span class="text-danger" *ngIf="response != 'success'">{{response}}</span>
+              <span class="text-success" *ngIf="response == 'success'">{{response}}</span>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Cover</th>
+                <th>Name</th>
+                <th>Link</th>
+                <th>EXP</th>
+                <th>Status</th>
+                <th>Create</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let lv of listAds;let i = index">
+                <td>
+                  <img [src]="lv.cover" width="320px;" height="160px;">
+                </td>
+                <td>{{ lv.name }}</td>
+                <td>{{ lv.link }}</td>
+                <td>{{ (lv.type == 'perclick') ? (lv.click +'/' + lv.click_limit+' Click') : (app.convertTime(lv.date_exp) |
+                  date) }}
+                </td>
+                <td>
+                  <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="updateActive(lv._id, i, true)" *ngIf="!lv.active">Active</button>
+                  <button type="submit" class="btn btn-sm btn-primary pull-right" (click)="updateActive(lv._id, i, false)" *ngIf="lv.active">InActive</button>
+                </td>
+                <td>{{ app.convertTime(lv.date) | date }} </td>
+                <td>
+                  <a href="javascript:void(0)" (click)="getAdsByID(lv, i)" data-toggle="modal" data-target="#update">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  </a>
+                  <a href="javascript:void(0)" (click)="deleteAdvertising(lv, i)">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+      <div class="card-footer small text-muted"></div>
+    </div>
+  </div>
+
+  <footer class="sticky-footer">
+    <div class="container">
+      <div class="text-center">
+        <small>Copyright © Your Website 2017</small>
+      </div>
+    </div>
+  </footer>
+
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+  </a>
+</div>
+
+<!-- edit Ads -->
+<div class="modal fade modalCover" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Advertising</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <div>
+            <img-cropper #cropper2 [image]="dataCover" [settings]="cropCover"></img-cropper>
+            <br>
+          </div>
+          <br>
+
+          <div class="form-group row">
+            <label for="example-text-input" class="col-1 col-form-label">Name</label>
+            <div class="col-3">
+              <input class="form-control" type="text" id="example-text-input" [(ngModel)]="edit_name">
+            </div>
+            <label for="example-text-input" class="col-1 col-form-label">Link</label>
+            <div class="col-5">
+              <input class="form-control" type="text" id="example-text-input" [(ngModel)]="edit_link">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="example-text-input" class="col-4 col-form-label">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optradio2" (click)="selectType('perclick')" [checked]="edit_type == 'perclick'"> Per click</label>
+                <label>
+                  <input type="radio" name="optradio2" (click)="selectType('month')" [checked]="edit_type != 'perclick'"> For month</label>
+              </div>
+            </label>
+          </div>
+
+          <div class="form-group row" *ngIf="edit_type == 'perclick'">
+            <label for="example-text-input" class="col-2 col-form-label">Click Limit</label>
+            <div class="col-3">
+              <input class="form-control" type="number" id="example-text-input" [(ngModel)]="edit_click_limit">
+            </div>
+          </div>
+
+          <div class="form-group row" *ngIf="edit_type != 'perclick'">
+            <label for="example-text-input" class="col-2 col-form-label">Date EXP</label>
+            <div class="col-3">
+              <my-date-picker name="date_end" [options]="myDatePickerOptions" [(ngModel)]="edit_date_exp" required></my-date-picker>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateAdvertisingByID()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
