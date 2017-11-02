@@ -28,6 +28,7 @@
     "angular2-resizing-cropping-image": "^1.0.0-final.4",
     "core-js": "^2.4.1",
     "croppie": "^2.5.0",
+    "mydatepicker": "^2.1.0",
     "ng2-file-drop": "^1.1.0",
     "ng2-img-cropper": "^0.9.0",
     "ng2-validation-manager": "^0.5.3",
